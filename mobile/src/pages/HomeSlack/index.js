@@ -15,6 +15,7 @@ export default function HomeSlack() {
     const [modalVisible, setModalVisible] = useState(false);
     const [dialogVisible, setDialogVisible] = useState(false);
     const [privadoModal, setPrivadoModal] = useState(false);
+    const [actualUser, setActualUser] = useState('');
 
     const [senha, setSenha] = useState('');
 
@@ -86,6 +87,7 @@ export default function HomeSlack() {
         }
 
         const user_id = await AsyncStorage.getItem('user');
+        setActualUser(user_id);
         try {
             const response = await api.get(`/slacks`, {
                 headers: { user_id, search_text: searchText },
@@ -373,31 +375,37 @@ export default function HomeSlack() {
                                 <View style={styles.postTitulo}>
                                     <Feather name={slack.senha != '' ? "lock" : 'unlock'} size={14} color={slack.senha != '' ? "#5AAAA5" : "#7DCEA0"} style={{ marginRight: 5 }} />
                                     <Text style={styles.postTitle}>{slack.nome}</Text>
-                                    <Text style={styles.Nomepost}>{handleDate(slack.createdIn)}</Text>
-                                    {/* Colocar a data no canto direito da tela */}
                                 </View>
+                                <Text style={styles.Nomepost}>{handleDate(slack.createdIn)}</Text>
                             </View>
                             <View style={styles.headerTags}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                                     <Text style={styles.Nomepost}>{slack.user ? slack.user[0].name : ''}</Text>
                                     <Text style={styles.Nomepost}>{slack.tag[0]}</Text>
-                                    <TouchableOpacity onPress={() =>
-                                        handleDeleteSlack(slack)}
-                                        //         },
-                                        // Alert.alert(
-                                        //     'Excluir',
-                                        //     'Deseja excluir sua slack?',
-                                        //     [
-                                        //         { text: 'Não', onPress: () => { return null } },
-                                        //         {
-                                        //             text: 'Sim', onPress: () => { () => 
-                                        //     ],
-                                        //     { cancelable: false }
-                                        // )}
-                                        style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
-                                    >
-                                        <Feather name="trash-2" size={15} color='#E73751'></Feather>
-                                    </TouchableOpacity>
+                                    {actualUser === slack.user[0]._id ?
+                                    <>
+                                        <TouchableOpacity onPress={() =>
+                                            handleDeleteSlack(slack)}
+                                            //         },
+                                            // Alert.alert(
+                                            //     'Excluir',
+                                            //     'Deseja excluir sua slack?',
+                                            //     [
+                                            //         { text: 'Não', onPress: () => { return null } },
+                                            //         {
+                                            //             text: 'Sim', onPress: () => { () => 
+                                            //     ],
+                                            //     { cancelable: false }
+                                            // )}
+                                            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+                                        >
+                                            <Feather name="trash-2" size={15} color='#E73751'></Feather>
+                                        </TouchableOpacity>
+                                    </>
+                                    :
+                                    <>
+                                    </>
+                }
                                 </View>
                                 <TouchableOpacity style={styles.Ver} onPress={() => navigateToSlack(slack)}>
                                     <Feather name="chevron-right" size={25} color='#FFC300'></Feather>

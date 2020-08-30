@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     color:'#444'
   },
   viewInput:{
-    paddingVertical:hp('1%'), 
+    paddingVertical:hp('0%'), 
     paddingHorizontal:16
   },
   perfilName:{
@@ -186,7 +186,8 @@ const styles = StyleSheet.create({
   postTitulo:{
     flexDirection:'row',
     alignItems:'center',
-    marginBottom:2
+    marginBottom:2,
+    justifyContent: 'space-between'
   },
 
   headerTags:{
