@@ -2,8 +2,8 @@
   "expo": {
     "name": "Esclareca",
     "slug": "testapkss",
-    "description":"Tire suas dúvidas!",
-    "sdkVersion": "36.0.0",
+    "description": "Tire suas dúvidas!",
+    "sdkVersion": "38.0.0",
     "platforms": [
       "ios",
       "android"
